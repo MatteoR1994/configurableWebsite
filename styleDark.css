@@ -16,10 +16,10 @@ html {
 body {
     height: 100%;
     margin: 0;
-    background-color: white;
+    background-color: rgb(48, 47, 47);
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 2fr auto 1fr;
+    grid-template-rows: 2fr 3fr 1fr;
     grid-template-areas: "header"
                          "content"
                          "footer";
@@ -38,20 +38,26 @@ header {
 
 .main-title {
     font-family: 'Merienda One', cursive;
-    color: white;
     font-size: 51px;
-    text-shadow: 2px 2px rgb(48, 47, 47);
+    color: rgb(48, 47, 47);
+    text-shadow: 2px 2px white;
 }
 
 .page-content {
     grid-area: content;
     font-family: 'ABeeZee', sans-serif;
+    background-color: rgb(48, 47, 47);
+    color: white;
     max-width: 800px;
     margin: auto;
     text-align: center;
     padding-top: 30px;
     padding-bottom: 50px;
     /* background-color: red; */
+}
+
+.page-content img {
+    border: 1px solid white;
 }
 
 footer {
