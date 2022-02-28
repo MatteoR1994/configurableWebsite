@@ -33,7 +33,7 @@ function generalSettings(data) {
     headerTitle.appendChild(titleTextNode);
 
     // Cambio background image header
-    const header = document.getElementsByTagName('header')[0];
+    const header = document.getElementById('header');
     header.style.backgroundImage = 'url(' + headerImage + ')';
 
     // Genero i footer links
