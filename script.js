@@ -1,6 +1,7 @@
-fetchGeneralSettings();
-
-fetchPageSettings();
+function initWebsite() {
+    fetchGeneralSettings();
+    fetchPageSettings();
+}
 
 function fetchGeneralSettings() {
     fetch('./assets/settings/setting.json')
