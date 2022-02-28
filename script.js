@@ -15,7 +15,7 @@ function generalSettings(data) {
     const headerImage = data.headerImage;
     const footerLinks = data.footerLinks;
 
-    const linkCSS = document.getElementsByTagName('link')[0];
+    const linkCSS = document.getElementById('styleLinkTag');
     if (theme.toLowerCase() === 'light') {
         linkCSS.setAttribute('href', './style.css');
     }
