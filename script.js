@@ -27,7 +27,7 @@ function generalSettings(data) {
     document.title = title;
 
     // Imposto titolo header
-    const headerTitle = document.getElementsByClassName('main-title')[0];
+    const headerTitle = document.getElementById('main-title');
     const titleTextNode = document.createTextNode(title);
     headerTitle.appendChild(titleTextNode);
 
@@ -36,7 +36,7 @@ function generalSettings(data) {
     header.style.backgroundImage = 'url(' + headerImage + ')';
 
     // Genero i footer links
-    const linkDiv = document.getElementsByClassName('link-container')[0];
+    const linkDiv = document.getElementById('link-container');
 
     for (const link of footerLinks) {
         const a = document.createElement('a');
@@ -58,7 +58,7 @@ function fetchPageSettings() {
 }
 
 function pageSettings(data) {
-    const divContent = document.getElementsByClassName('page-content')[0];
+    const divContent = document.getElementById('page-content');
     for (const element of data[0].content) {
         const tag = document.createElement(element.tag);
         if (element.tag.toLowerCase() === 'img') {
