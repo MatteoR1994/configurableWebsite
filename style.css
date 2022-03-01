@@ -19,7 +19,7 @@ body {
     background-color: white;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 300px 70px auto 200px;
+    grid-template-rows: 300px 70px auto 100px;
     grid-template-areas: "header"
                          "menu"
                          "content"
