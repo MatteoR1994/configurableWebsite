@@ -91,6 +91,8 @@ function fetchNewPageSettings() {
         .catch(err => console.log(err));
 }
 
+const divContent = document.getElementById('page-content');
+
 function newPageSettings(data) {
     setNavMenu(data);
     const paramsString = window.location.search;
@@ -100,11 +102,8 @@ function newPageSettings(data) {
         id = "p1"
     }
     const page = data.filter(p => p.id === id)[0];
-    // const divContent = document.getElementById('page-content');
     createNewPage(page.content);
 }
-
-const divContent = document.getElementById('page-content');
 
 function createNewPage(pageContent) {
     for (const element of pageContent) {
@@ -113,40 +112,38 @@ function createNewPage(pageContent) {
             const child = generateChildren(children, element.tag);
             divContent.appendChild(child);
         } else {
-            const tag = document.createElement(element.tag);
-            if (element.tag.toLowerCase() === 'img') {
-                tag.src = element.url;
-                tag.style.width = '285px';
-            } else {
-                const textNode = document.createTextNode(element.text);
-                tag.appendChild(textNode);
-            }
-            divContent.appendChild(tag);
+            const newTag = createHTMLElement(element.tag, element.url, element.text);
+            divContent.appendChild(newTag);
         }
     }
 }
 
-function generateChildren(children, tag) {
-    const tagCont = document.createElement(tag);
-    for (const child of children) {
+function generateChildren(childrenToCheck, tagToCreate) {
+    const tagContainer = document.createElement(tagToCreate);
+    for (const child of childrenToCheck) {
         if (Object.hasOwnProperty.call(child, "children")) {
             const children = child["children"];
-            const child2 = generateChildren(children, child.tag);
-            tagCont.appendChild(child2);
+            const subChild = generateChildren(children, child.tag);
+            tagContainer.appendChild(subChild);
         } else {
-            const tagNormal = document.createElement(child.tag);
-            if (child.tag.toLowerCase() === 'img') {
-                tagNormal.src = child.url;
-                tagNormal.style.width = '285px';
-            } else {
-                const textNode = document.createTextNode(child.text);
-                tagNormal.appendChild(textNode);
-            }
-            tagCont.appendChild(tagNormal);
+            const newTag = createHTMLElement(child.tag, child.url, child.text);
+            tagContainer.appendChild(newTag);
             
         }
     }
-    return tagCont;
+    return tagContainer;
+}
+
+function createHTMLElement(tagToCreate, url, text) {
+    const tag = document.createElement(tagToCreate);
+    if (tagToCreate.toLowerCase() === 'img') {
+        tag.src = url;
+        tag.style.width = '285px';
+    } else {
+        const textNode = document.createTextNode(text);
+        tag.appendChild(textNode);
+    }
+    return tag;
 }
 
 function setNavMenu(pageSetting) {

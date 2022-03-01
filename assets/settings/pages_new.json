@@ -1,11 +1,11 @@
 [
     {
         "id": "p1",
-        "name": "pagina 1",
+        "name": "Pasticcera celiaca",
         "content": [
             {
                 "tag": "h2",
-                "text": "Pasticera celiaca"
+                "text": "Pasticcera celiaca"
             },
             {
                 "tag": "p",
@@ -19,11 +19,11 @@
     },
     {
         "id": "p2",
-        "name": "pagina 2",
+        "name": "Pasticcera simpaticona",
         "content": [
             {
                 "tag": "h2",
-                "text": "Pasticera simpaticona"
+                "text": "Pasticcera simpaticona"
             },
             {
                 "tag": "p",
@@ -41,11 +41,11 @@
     },
     {
         "id": "p3",
-        "name": "pagina 3",
+        "name": "Pasticcera burlona",
         "content": [
             {
                 "tag": "h2",
-                "text": "Pasticera burlona"
+                "text": "Pasticcera burlona"
             },
             {
                 "tag": "p",
@@ -59,7 +59,7 @@
     },
     {
         "id": "p4",
-        "name": "pagina 4",
+        "name": "Pasticcera grafica",
         "content": [
             {
                 "tag": "div",
@@ -67,7 +67,7 @@
                     {
                         "tag": "h2",
                         "class": "page-title",
-                        "text": "Pasticera burlona"
+                        "text": "Pasticcera grafica"
                     },
                     {
                         "tag": "p",
