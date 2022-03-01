@@ -1,6 +1,7 @@
 function initWebsite() {
     fetchGeneralSettings();
-    fetchPageSettings();
+    // fetchPageSettings();
+    fetchNewPageSettings();
 }
 
 function fetchGeneralSettings() {
@@ -52,15 +53,23 @@ function generalSettings(data) {
 // ---- //
 
 function fetchPageSettings() {
-    fetch('./assets/settings/pages.json')
+    fetch('./assets/settings/pages_old.json')
         .then(resp => resp.json())
         .then(pageSettings)
         .catch(err => console.log(err));
 }
 
 function pageSettings(data) {
+    setNavMenu(data);
+    const paramsString = window.location.search;
+    const params = new URLSearchParams(paramsString);
+    let id = params.get('id');
+    if(!id) {
+        id = "p1"
+    }
+    const page = data.filter(p => p.id === id)[0];
     const divContent = document.getElementById('page-content');
-    for (const element of data[0].content) {
+    for (const element of page.content) {
         const tag = document.createElement(element.tag);
         if (element.tag.toLowerCase() === 'img') {
             tag.src = element.url;
@@ -70,5 +79,87 @@ function pageSettings(data) {
             tag.appendChild(textNode);
         }
         divContent.appendChild(tag);
+    }
+}
+
+// ---- //
+
+function fetchNewPageSettings() {
+    fetch('./assets/settings/pages_new.json')
+        .then(resp => resp.json())
+        .then(newPageSettings)
+        .catch(err => console.log(err));
+}
+
+function newPageSettings(data) {
+    setNavMenu(data);
+    const paramsString = window.location.search;
+    const params = new URLSearchParams(paramsString);
+    let id = params.get('id');
+    if(!id) {
+        id = "p1"
+    }
+    const page = data.filter(p => p.id === id)[0];
+    // const divContent = document.getElementById('page-content');
+    createNewPage(page.content);
+}
+
+const divContent = document.getElementById('page-content');
+
+function createNewPage(pageContent) {
+    for (const element of pageContent) {
+        if (Object.hasOwnProperty.call(element, "children")) {
+            const children = element["children"];
+            const child = generateChildren(children, element.tag);
+            divContent.appendChild(child);
+        } else {
+            const tag = document.createElement(element.tag);
+            if (element.tag.toLowerCase() === 'img') {
+                tag.src = element.url;
+                tag.style.width = '285px';
+            } else {
+                const textNode = document.createTextNode(element.text);
+                tag.appendChild(textNode);
+            }
+            divContent.appendChild(tag);
+        }
+    }
+}
+
+function generateChildren(children, tag) {
+    const tagCont = document.createElement(tag);
+    for (const child of children) {
+        if (Object.hasOwnProperty.call(child, "children")) {
+            const children = child["children"];
+            const child2 = generateChildren(children, child.tag);
+            tagCont.appendChild(child2);
+        } else {
+            const tagNormal = document.createElement(child.tag);
+            if (child.tag.toLowerCase() === 'img') {
+                tagNormal.src = child.url;
+                tagNormal.style.width = '285px';
+            } else {
+                const textNode = document.createTextNode(child.text);
+                tagNormal.appendChild(textNode);
+            }
+            tagCont.appendChild(tagNormal);
+            
+        }
+    }
+    return tagCont;
+}
+
+function setNavMenu(pageSetting) {
+    const navMenu = document.getElementById('nav-menu');
+    for (const page of pageSetting) {
+        const a = document.createElement('a');
+        const node = document.createTextNode(page.name);
+        a.appendChild(node);
+        // const baseUrl = window.location.toString().split("=")[0];
+        // const url = baseUrl + "=" + page.id;
+        const url = "/?id=" + page.id;
+        console.log(url);
+        a.href = url;
+        navMenu.appendChild(a);
     }
 }
