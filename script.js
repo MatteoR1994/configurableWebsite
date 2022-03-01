@@ -24,6 +24,9 @@ function generalSettings(data) {
     if (theme.toLowerCase() === 'dark') {
         linkCSS.setAttribute('href', './styleDark.css');
     }
+    if (theme.toLowerCase() === 'lateral-menu') {
+        linkCSS.setAttribute('href', './lateral-menu.css');
+    }
     
     // Imposto titolo documento
     document.title = title;
