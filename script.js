@@ -183,10 +183,9 @@ function setNavMenu(pageSetting) {
         a.id = page.id;
         const node = document.createTextNode(page.name);
         a.appendChild(node);
-        const baseUrl = window.location.toString().split("=")[0];
-        const url = baseUrl + "=" + page.id;
-        //const url = "/?id=" + page.id;
-        console.log(url);
+        // const baseUrl = window.location.toString().split("=")[0];
+        // const url = baseUrl + "=" + page.id;
+        const url = "/?id=" + page.id;
         a.href = url;
         navMenu.appendChild(a);
     }
