@@ -102,6 +102,15 @@ function newPageSettings(data) {
         id = "p1"
     }
     const page = data.filter(p => p.id === id)[0];
+
+    // const menu = document.getElementById('nav-menu');
+    // for (const aTag of menu.children) {
+    //     if (aTag.id === page.id) {
+    //         aTag.style.backgroundColor = 'white';
+    //         aTag.style.color = 'rgb(48, 47, 47)';
+    //     }
+    // }
+
     createNewPage(page.content);
 }
 
@@ -109,24 +118,42 @@ function createNewPage(pageContent) {
     for (const element of pageContent) {
         if (Object.hasOwnProperty.call(element, "children")) {
             const children = element["children"];
-            const child = generateChildren(children, element.tag);
+            // const child = generateChildren(children, element.tag);
+            const child = generateChildren(children, element);
             divContent.appendChild(child);
         } else {
-            const newTag = createHTMLElement(element.tag, element.url, element.text);
+            let newTag;
+            if (Object.hasOwnProperty.call(element, "style")) {
+                newTag = createHTMLElement(element.tag, element.url, element.text, element['style']);
+            } else {
+                newTag = createHTMLElement(element.tag, element.url, element.text);
+            }
+            // const newTag = createHTMLElement(element.tag, element.url, element.text);
             divContent.appendChild(newTag);
         }
     }
 }
 
-function generateChildren(childrenToCheck, tagToCreate) {
+function generateChildren(childrenToCheck, element) {
+    let tagToCreate = element.tag;
     const tagContainer = document.createElement(tagToCreate);
+    if (Object.hasOwnProperty.call(element, "style")) {
+        tagContainer.style = element.style;
+    }
     for (const child of childrenToCheck) {
         if (Object.hasOwnProperty.call(child, "children")) {
             const children = child["children"];
-            const subChild = generateChildren(children, child.tag);
+            // const subChild = generateChildren(children, child.tag);
+            const subChild = generateChildren(children, child);
             tagContainer.appendChild(subChild);
         } else {
-            const newTag = createHTMLElement(child.tag, child.url, child.text);
+            let newTag;
+            if (Object.hasOwnProperty.call(child, "style")) {
+                newTag = createHTMLElement(child.tag, child.url, child.text, child['style']);
+            } else {
+                newTag = createHTMLElement(child.tag, child.url, child.text);
+            }
+            // const newTag = createHTMLElement(child.tag, child.url, child.text);
             tagContainer.appendChild(newTag);
             
         }
@@ -134,8 +161,11 @@ function generateChildren(childrenToCheck, tagToCreate) {
     return tagContainer;
 }
 
-function createHTMLElement(tagToCreate, url, text) {
+function createHTMLElement(tagToCreate, url, text, style = '') {
     const tag = document.createElement(tagToCreate);
+    if (style !== '') {
+        tag.style = style;
+    }
     if (tagToCreate.toLowerCase() === 'img') {
         tag.src = url;
         tag.style.width = '285px';
@@ -150,6 +180,7 @@ function setNavMenu(pageSetting) {
     const navMenu = document.getElementById('nav-menu');
     for (const page of pageSetting) {
         const a = document.createElement('a');
+        a.id = page.id;
         const node = document.createTextNode(page.name);
         a.appendChild(node);
         // const baseUrl = window.location.toString().split("=")[0];
