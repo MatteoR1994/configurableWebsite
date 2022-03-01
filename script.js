@@ -121,7 +121,6 @@ function createNewPage(pageContent) {
     for (const element of pageContent) {
         if (Object.hasOwnProperty.call(element, "children")) {
             const children = element["children"];
-            // const child = generateChildren(children, element.tag);
             const child = generateChildren(children, element);
             divContent.appendChild(child);
         } else {
@@ -131,7 +130,6 @@ function createNewPage(pageContent) {
             } else {
                 newTag = createHTMLElement(element.tag, element.url, element.text);
             }
-            // const newTag = createHTMLElement(element.tag, element.url, element.text);
             divContent.appendChild(newTag);
         }
     }
@@ -146,7 +144,6 @@ function generateChildren(childrenToCheck, element) {
     for (const child of childrenToCheck) {
         if (Object.hasOwnProperty.call(child, "children")) {
             const children = child["children"];
-            // const subChild = generateChildren(children, child.tag);
             const subChild = generateChildren(children, child);
             tagContainer.appendChild(subChild);
         } else {
@@ -156,7 +153,6 @@ function generateChildren(childrenToCheck, element) {
             } else {
                 newTag = createHTMLElement(child.tag, child.url, child.text);
             }
-            // const newTag = createHTMLElement(child.tag, child.url, child.text);
             tagContainer.appendChild(newTag);
             
         }
@@ -164,13 +160,14 @@ function generateChildren(childrenToCheck, element) {
     return tagContainer;
 }
 
-function createHTMLElement(tagToCreate, url, text, style = '') {
+function createHTMLElement(tagToCreate, url, text, style = '', className = '') {
     const tag = document.createElement(tagToCreate);
     if (style !== '') {
         tag.style = style;
     }
     if (tagToCreate.toLowerCase() === 'img') {
         tag.src = url;
+        tag.className = className + ' ';
         tag.style.width = '285px';
     } else {
         const textNode = document.createTextNode(text);
