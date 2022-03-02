@@ -113,15 +113,16 @@ function pageSettingsMarkdownUrl(data) {
     }
     const page = data.filter(p => p.id === id)[0];
     fetch(page.content)
-        .then(resp => resp.json())
+        .then(resp => resp.text())
         .then(displayMarkdownFromUrl)
         .catch(err => console.log(err));
 }
 
-function displayMarkdownFromUrl(data) {
+function displayMarkdownFromUrl(data2) {
+    console.log(data2);
     const divContent = document.getElementById('page-content');
     
-    const parsedText = marked.parse(data);
+    const parsedText = marked.parse(data2);
 
     divContent.innerHTML = parsedText;
 }
