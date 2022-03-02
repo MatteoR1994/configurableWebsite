@@ -1,0 +1,12 @@
+[
+    {
+        "id": "p1",
+        "name": "Pasticcera celiaca",
+        "content": "./assets/settings/pages-markdown/pasticcera-celiaca.md"
+    },
+    {
+        "id": "p2",
+        "name": "Pasticcera burlona",
+        "content": "./assets/settings/pages-markdown/pasticcera-burlona.md"
+    }
+]
