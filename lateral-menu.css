@@ -77,6 +77,11 @@ header {
     /* background-color: red; */
 }
 
+.page-content img {
+    width: 285px;
+    margin-top: 20px;
+}
+
 footer {
     grid-area: footer;
     background-color: #6B605C;

@@ -86,6 +86,8 @@ header {
 
 .page-content img {
     border: 1px solid white;
+    width: 285px;
+    margin-top: 20px;
 }
 
 footer {
